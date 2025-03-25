@@ -33,7 +33,12 @@ void FirstDigit(int X) {
 
 // Функция для нахождения N-ной цифры числа X (цифры нумеруются справа налево)
 void NthDigit(int X, int N) {
-    // Здесь должно быть тело функции
+    void NthDigit(int X, int N) {
+        string strX = to_string(X);
+        int nthDigit = strX[strX.length() - 1 - N] - '0'; // Получаем N-ю цифру
+        cout << N << "-я цифра числа X (справа налево): " << nthDigit << endl;
+    }
+    
 }
 
 int main() {
