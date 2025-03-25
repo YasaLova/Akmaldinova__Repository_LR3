@@ -20,7 +20,15 @@ void EnterDigitN(int X, int& N) {
 
 // Функция для нахождения первой цифры числа X
 void FirstDigit(int X) {
-    // Здесь должно быть тело функции
+    do {
+        cout << "Введите цифру N (меньше числа разрядов числа X, т.е. N < 3): ";
+        cin >> N;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Неверный ввод. Пожалуйста, введите целое число." << endl;
+        }
+    } while (N >= to_string(X).length());
 }
 
 // Функция для нахождения N-ной цифры числа X (цифры нумеруются справа налево)
