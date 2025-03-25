@@ -1,44 +1,42 @@
 #include <iostream>
-#include <string> 
+#include <cmath>
+#include <limits>
 using namespace std;
 
-// Функция для ввода целого трехзначного числа X
 void EnterThreeDigitNumber(int& X) {
     do {
         cout << "Введите целое трехзначное число X: ";
-        cin >> X;
-    } while (X < 100 || X > 999);
-}
-
-// Функция для ввода цифры N (меньше числа разрядов числа X)
-void EnterDigitN(int X, int& N) {
-    do {
-        cout << "Введите цифру N (меньше числа разрядов числа X, т.е. N < 3): ";
-        cin >> N;
-    } while (N >= to_string(X).length());
-}
-
-// Функция для нахождения первой цифры числа X
-void FirstDigit(int X) {
-    do {
-        cout << "Введите цифру N (меньше числа разрядов числа X, т.е. N < 3): ";
-        cin >> N;
-        if (cin.fail()) {
+        if (!(cin >> X)) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Неверный ввод. Пожалуйста, введите целое число." << endl;
+        } else if (X < 100 || X > 999) {
+            cout << "Число должно быть трехзначным. Попробуйте снова." << endl;
         }
-    } while (N >= to_string(X).length());
+    } while (X < 100 || X > 999);
 }
 
-// Функция для нахождения N-ной цифры числа X (цифры нумеруются справа налево)
+void EnterDigitN(int X, int& N) {
+    do {
+        cout << "Введите цифру N (меньше числа разрядов числа X, т.е. N < 3): ";
+        if (!(cin >> N)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Неверный ввод. Пожалуйста, введите целое число." << endl;
+        } else if (N < 0 || N >= 3) {
+            cout << "Цифра N должна быть от 0 до 2. Попробуйте снова." << endl;
+        }
+    } while (N < 0 || N >= 3);
+}
+
+void FirstDigit(int X) {
+    int firstDigit = X / 100; // Получаем первую цифру
+    cout << "Первая цифра числа X: " << firstDigit << endl;
+}
+
 void NthDigit(int X, int N) {
-    void NthDigit(int X, int N) {
-        string strX = to_string(X);
-        int nthDigit = strX[strX.length() - 1 - N] - '0'; // Получаем N-ю цифру
-        cout << N << "-я цифра числа X (справа налево): " << nthDigit << endl;
-    }
-    
+    int nthDigit = (X / static_cast<int>(pow(10, N))) % 10; 
+    cout << N << "-я цифра числа X (справа налево): " << nthDigit << endl;
 }
 
 int main() {
@@ -52,7 +50,13 @@ int main() {
         cout << "4. Найти N-ю цифру числа X (цифры нумеруются справа налево)\n";
         cout << "0. Выход\n";
         cout << "Выберите действие: ";
-        cin >> choice;
+        
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Неверный выбор. Попробуйте снова.\n";
+            continue;
+        }
 
         switch (choice) {
         case 1:
@@ -73,7 +77,7 @@ int main() {
             }
             break;
         case 4:
-            if (X == 0 || N == 0) {
+            if (X == 0 || N < 0) {
                 cout << "Сначала введите число X и цифру N (пункты 1 и 2).\n";
             } else {
                 NthDigit(X, N);
