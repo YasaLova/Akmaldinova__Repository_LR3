@@ -1,10 +1,13 @@
 #include <iostream>
-#include <string>
+#include <string> 
 using namespace std;
 
 // Функция для ввода целого трехзначного числа X
 void EnterThreeDigitNumber(int& X) {
-    // Здесь должно быть тело функции
+    do {
+        cout << "Введите целое трехзначное число X: ";
+        cin >> X;
+    } while (X < 100 || X > 999);
 }
 
 // Функция для ввода цифры N (меньше числа разрядов числа X)
